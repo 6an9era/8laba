@@ -5,13 +5,21 @@ public class ChatMessage {
     private String message;
     private ChatUser author;
     private long timestamp;
-    private long sec = 60; // было 30 секунд
-    private long quantity = 15;
+    private long sec = 60; // было 30 секунд это задание 4
+    private long quantity = 15; // это вроде задание 3
 
     public ChatMessage(String message, ChatUser author, long timestamp) {
-        this.message = message;
+
+        this.message = Smile(message);
         this.author = author;
         this.timestamp = timestamp;
+    }
+    private String Smile(String message)
+    {
+        message = message.replace(":("," [;(] ");
+        message = message.replace(":)"," [;)] ");
+
+        return message;
     }
     public long getQuantity()
     {return quantity;}
