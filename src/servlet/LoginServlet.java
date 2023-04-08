@@ -95,7 +95,7 @@ public class LoginServlet extends ChatServlet {
         String errorMessage = null;
         if (name==null || "".equals(name)) {
             errorMessage = "Name cannot be empty!";
-        }  else  if(count == 3) {
+        }  else  if(count == 3) { // Это кол-во пользователей, которые могут сидеть на чате А4 вариант
             errorMessage = "number of users exceeded!";
         }  else {
 
@@ -119,9 +119,6 @@ public class LoginServlet extends ChatServlet {
             }
         }
         count ++;
-
-
-
         if (aUser.getSessionId().equals(sessionId) || aUser.getLastInteractionTime()<(Calendar.getInstance().getTimeInMillis()- sessionTimeout*1000)) {
             // Если указанное имя принадлежит текущему пользователю,
 // либо оно принадлежало кому-то другому, но сессия истекла,
@@ -132,7 +129,11 @@ public class LoginServlet extends ChatServlet {
             Cookie sessionIdCookie = new Cookie("sessionId", sessionId);
             sessionIdCookie.setMaxAge(60*60*24*365);
             response.addCookie(sessionIdCookie);
+
             response.sendRedirect(response.encodeRedirectURL("/lab8/view.html"));
+            synchronized (messages) {
+                messages.add(new ChatMessage("Пользователь -> " +aUser.getName() + " -> Приcоединился к чату", Ssystem, Calendar.getInstance().getTimeInMillis()));
+            }
             return null;
         } else {
             return "Sorry, <strong>" + name + "</strong> is engaged. Please try another one!";

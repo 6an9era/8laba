@@ -14,6 +14,7 @@ public class ChatServlet extends javax.servlet.http.HttpServlet {
     protected HashMap<String, ChatUser> activeUsers;
     // Список сообщений чата
     protected ArrayList<ChatMessage> messages;
+    public static ChatUser Ssystem=new ChatUser("Чат-бог-тот-самый-админ",0,"");
 
     @SuppressWarnings("unchecked")
     public void init() throws ServletException {
