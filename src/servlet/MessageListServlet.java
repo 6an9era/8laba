@@ -23,8 +23,13 @@ public class MessageListServlet extends ChatServlet {
         for (int i=messages.size()-1; i>=messages.size()-messages.get(1).getQuantity(); i--) {
             ChatMessage aMessage = messages.get(i);
             long k = aMessage.getAuthor().getNumber();
-            if ((Calendar.getInstance().getTimeInMillis()-messages.get(i).getTimestamp())/1000 <= messages.get(i).getSec())
-            pw.println("<div><strong>" + aMessage.getAuthor().getName() + "</strong> - ("+k+") : " + aMessage.getMessage() + "</div>");
+            if ((Calendar.getInstance().getTimeInMillis()-messages.get(i).getTimestamp())/1000 <= messages.get(i).getSec()) {
+                if (i != messages.size() - 1 && aMessage.getAuthor().equals(messages.get(i+1).getAuthor())) {
+                    pw.println("<div>   |||   " + aMessage.getMessage() + "</div>");
+                }
+                else
+                pw.println("<div><strong>" + aMessage.getAuthor().getName() + "</strong> - (" + k + ") : " + aMessage.getMessage() + "</div>");
+            }
         }
         pw.println("</body></html>");
     }
