@@ -1,10 +1,13 @@
 package servlet;
 import java.io.IOException;
+import java.util.Calendar;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import entity.ChatMessage;
 import entity.ChatUser;
 
 @WebServlet(name = "LogoutServlet")
@@ -31,8 +34,12 @@ public class LogoutServlet extends ChatServlet {
             } else {
                 response.sendRedirect(response.encodeRedirectURL("/lab8/view.html"));
             }
+            synchronized (messages) {
+                messages.add(new ChatMessage("Пользователь -> " +aUser.getName() + " -> Покинул чат", Ssystem, Calendar.getInstance().getTimeInMillis()));
+            }
         } else {
             response.sendRedirect(response.encodeRedirectURL("/lab8/view.html"));
+
         }
     }
 }
