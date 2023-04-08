@@ -19,7 +19,8 @@ public class NewMessageServlet extends ChatServlet {
         // Извлечь из HTTP-запроса параметр 'message'
         String message = (String)request.getParameter("message");
         if (message!=null && !"".equals(message)) {
-            ChatUser author = activeUsers.get((String) request.getSession().getAttribute("name"));
+           activeUsers.get((String) request.getSession().getAttribute("name")).Numberplusplus();
+           ChatUser author = activeUsers.get((String) request.getSession().getAttribute("name"));
             synchronized (messages) {
                 messages.add(new ChatMessage(message, author, Calendar.getInstance().getTimeInMillis()));
             }

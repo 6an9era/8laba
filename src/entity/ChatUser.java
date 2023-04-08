@@ -5,10 +5,20 @@ public class ChatUser {
     private long lastInteractionTime;
     private String sessionId;
 
+    private long number;
+
     public ChatUser(String name, long lastInteractionTime, String sessionId) {
         this.name = name;
         this.lastInteractionTime = lastInteractionTime;
         this.sessionId = sessionId;
+    }
+    public void Numberplusplus()
+    {
+        this.number++;
+    }
+    public long getNumber()
+    {
+        return number;
     }
 
     public String getName() {

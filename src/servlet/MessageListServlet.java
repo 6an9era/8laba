@@ -22,8 +22,9 @@ public class MessageListServlet extends ChatServlet {
         // В обратном порядке записать в поток HTML-разметку для каждого сообщения
         for (int i=messages.size()-1; i>=messages.size()-messages.get(1).getQuantity(); i--) {
             ChatMessage aMessage = messages.get(i);
+            long k = aMessage.getAuthor().getNumber();
             if ((Calendar.getInstance().getTimeInMillis()-messages.get(i).getTimestamp())/1000 <= messages.get(i).getSec())
-            pw.println("<div><strong>" + aMessage.getAuthor().getName() + "</strong>: " + aMessage.getMessage() + "</div>");
+            pw.println("<div><strong>" + aMessage.getAuthor().getName() + "</strong> - ("+k+") : " + aMessage.getMessage() + "</div>");
         }
         pw.println("</body></html>");
     }
