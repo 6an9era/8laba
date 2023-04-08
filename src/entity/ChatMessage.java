@@ -5,6 +5,7 @@ public class ChatMessage {
     private String message;
     private ChatUser author;
     private long timestamp;
+    private long sec = 30;
 
     public ChatMessage(String message, ChatUser author, long timestamp) {
         this.message = message;
@@ -35,4 +36,10 @@ public class ChatMessage {
     public void setAuthor(ChatUser author) {
         this.author = author;
     }
+
+    public long getSec()
+    {
+        return sec;
+    }
+
 }

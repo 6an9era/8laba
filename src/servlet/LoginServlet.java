@@ -7,6 +7,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import entity.ChatMessage;
 import entity.ChatUser;
 
 @WebServlet(name="LoginServlet")
@@ -36,6 +38,7 @@ public class LoginServlet extends ChatServlet {
         // Если в сессии имя не сохранено, то попытаться
 // восстановить имя через cookie
         if (name==null) {
+
             try {
                 // Найти cookie с именем sessionId
                 for (Cookie aCookie : request.getCookies()) {
@@ -59,6 +62,8 @@ public class LoginServlet extends ChatServlet {
                 }
             }
         }
+        PrintWriter pw = response.getWriter();
+
 // Если в сессии имеется не пустое имя пользователя, то...
         if (name!=null && !"".equals(name)) {
             errorMessage = processLogonAttempt(name, request, response);
@@ -67,7 +72,6 @@ public class LoginServlet extends ChatServlet {
 // Задать кодировку HTTP-ответа
         response.setCharacterEncoding("utf8");
         // Получить поток вывода для HTTP-ответа
-        PrintWriter pw = response.getWriter();
         pw.println("<html><head><title>Мега-чат!</title><meta httpequiv='Content-Type' content='text/html; charset=utf-8'/></head>");
         // Если возникла ошибка - сообщить о ней
         if (errorMessage!=null) {
@@ -87,12 +91,14 @@ public class LoginServlet extends ChatServlet {
         request.setCharacterEncoding("UTF-8");
         // Извлечь из HTTP-запроса значение параметра 'name'
         String name = (String)request.getParameter("name");
+
         String errorMessage = null;
         if (name==null || "".equals(name)) {
             errorMessage = "Name cannot be empty!";
         }  else  if(count == 3) {
             errorMessage = "number of users exceeded!";
         }  else {
+
             errorMessage = processLogonAttempt(name, request, response);
         }
         if (errorMessage!=null) {
@@ -100,6 +106,7 @@ public class LoginServlet extends ChatServlet {
             request.getSession().setAttribute("error", errorMessage);
             response.sendRedirect(response.encodeRedirectURL("/lab8/"));
         }
+
     }
     // Возвращает текстовое описание возникшей ошибки или null
     String processLogonAttempt(String name, HttpServletRequest request, HttpServletResponse response) throws IOException {
