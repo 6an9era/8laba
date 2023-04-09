@@ -2,6 +2,7 @@ package servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +12,7 @@ import entity.ChatMessage;
 @WebServlet(name = "MessageListServlet")
 public class MessageListServlet extends ChatServlet {
     private static final long serialVersionUID = 1L;
+    Calendar calendar = new GregorianCalendar();
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Установить кодировку HTTP-ответа UTF-8
         response.setCharacterEncoding("utf8");
@@ -28,7 +30,7 @@ public class MessageListServlet extends ChatServlet {
                     pw.println("<div>   |||   " + aMessage.getMessage() + "</div>");
                 }
                 else
-                pw.println("<div><strong>" + aMessage.getAuthor().getName() + "</strong> - (" + k + ") : " + aMessage.getMessage() + "</div>");
+                pw.println("<div><strong>" + aMessage.getAuthor().getName() + "</strong> - (" + k + ") ("+calendar.getTime() +")     :  "+aMessage.getMessage() + "</div>");
             }
         }
         pw.println("</body></html>");
