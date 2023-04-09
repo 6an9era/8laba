@@ -7,12 +7,24 @@ public class ChatMessage {
     private long timestamp;
     private long sec = 60; // было 30 секунд это задание 4
     private long quantity = 15; // это вроде задание 3
+    private String badWords ="Сука,сука,Блядь,блядь,Блять,блять,Бля,бля,Ебать,ебать,Нахуй,нахуй";
+    String[] ErrorWords=badWords.split(",");
+
 
     public ChatMessage(String message, ChatUser author, long timestamp) {
-
-        this.message = Smile(message);
+        message = Smile(message);
+        message = BedWordsFilter(message);
+        this.message = message;
         this.author = author;
         this.timestamp = timestamp;
+    }
+    private String BedWordsFilter(String message)
+    {
+        for (int i =0;i< ErrorWords.length;i++)
+        {
+            message=message.replace(ErrorWords[i],"*Тут был мат*");
+        }
+        return message;
     }
     private String Smile(String message)
     {
