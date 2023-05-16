@@ -18,6 +18,10 @@ public class NewMessageServlet extends ChatServlet {
         request.setCharacterEncoding("UTF-8");
         // Извлечь из HTTP-запроса параметр 'message'
         String message = (String)request.getParameter("message");
+
+        message = message.replaceAll(":\\)","&#128515");
+        message = message.replaceAll(";\\)","&#128518;");
+      //  message = message.replaceAll(";)","&#128515");
         if (message!=null && !"".equals(message)) {
            activeUsers.get((String) request.getSession().getAttribute("name")).Numberplusplus();
            ChatUser author = activeUsers.get((String) request.getSession().getAttribute("name"));
